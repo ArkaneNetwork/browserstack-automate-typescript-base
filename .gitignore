@@ -1,0 +1,8 @@
+*.log
+.idea
+dist
+node_modules
+# CUSTOM
+browserstack-automate-*.tgz
+BrowserStackLocal
+.env

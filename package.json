@@ -1,0 +1,44 @@
+{
+  "name": "browserstack-automate-typescript-base",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "description": "TypeScript abstract base class to easily create mocha tests with browserstack automate (selenium). Only to be used for writing mocha tests in TypeScript.",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build-ts": "tsc -p .",
+    "build-and-pack": "npm run clean && npm run build-ts && npm pack"
+  },
+  "author": "steve.maris@arkane.network",
+  "license": "MIT",
+  "keywords": ["browserstack", "selenium", "automate", "frontend testing", "mocha", "chai", "typescript"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArkaneNetwork/browserstack-automate-typescript-base"
+  },
+  "bugs": {
+    "url": "https://github.com/ArkaneNetwork/browserstack-automate-typescript-base/issues"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "browserstack-local": "^1.4.5",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^7.0.1",
+    "dotenv": "^8.2.0",
+    "tslib": "^1.10.0",
+    "mocha-typescript": "^1.1.17",
+    "selenium-webdriver": "^4.0.0-alpha.5"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.8",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.0",
+    "@types/selenium-webdriver": "^4.0.6",
+    "cross-env": "^7.0.0",
+    "ts-node": "^8.6.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.7.5"
+  }
+}
