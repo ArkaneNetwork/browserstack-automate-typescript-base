@@ -1,3 +1,9 @@
+## Intro
+Want to create selenium tests with mocha in TypeScript?
+
+This project will help you to start quickly creating selenium tests on browserstack automate with NodeJS. 
+See https://www.browserstack.com/automate/node for the full documentation on this topic. 
+
 ## Setup
 
 ### For first time, check example
@@ -29,6 +35,8 @@ These variables should not be in .env file, but can be set before running a test
   * `MAC_SAFARI`
   * `WINDOWS10_EDGE`
   * `WINDOWS10_FIREFOX`
+* `BROWSERSTACK_BUILD` 
+  * This is used to name your BUILD, the name will be shown in the automate browserstack builds overview. If you run multiple tests with the same name in a short periode of time, they will be grouped together.
 
 ### Testing local or private url's 
 More info: https://www.browserstack.com/local-testing/automate
@@ -42,7 +50,6 @@ For local testing set these environment parameters
 This is used when testing on url's that are not public but available for your computer/server that run the tests, fe: http://localhost:8080. 
 
 ## Run Test
-
 `npm run test`
 
 # Next Steps
