@@ -7,7 +7,6 @@ import { WebDriver } from 'selenium-webdriver';
 
 import { Config, Setup }  from './Setup';
 import { Selenium }       from './Selenium';
-import { Utils }          from './Utils';
 import { BrowserConfigs } from '../config/browser-configs/all';
 
 import '../config/FastSelenium';
@@ -45,13 +44,14 @@ export abstract class BaseTestSuite {
         return BaseTestSuite.getBrowser();
     }
 
-
-    protected get user(): { login: string, password: string, pincode: string } {
-        return BaseTestSuite.getUser();
-    }
-
     protected static getBrowser(): WebDriver {
         return BaseTestSuite.staticDriver as WebDriver;
+    }
+
+    public static getTestName(str: string) {
+        const strParts = str.split('/');
+        const filename = strParts[strParts.length - 1].split('.')[0];
+        return filename.replace(/([a-z])([A-Z])/g, '$1_$2').replace(/-/g, '_').toUpperCase();
     }
 
     protected static async before(): Promise<void> {
@@ -60,7 +60,7 @@ export abstract class BaseTestSuite {
         BaseTestSuite.config = await Setup.getConfig();
         const bsConfig = Object.assign({}, BrowserConfigs.getCurrentConfig());
         if (this.name) {
-            bsConfig.name = bsConfig.name + '_' + Utils.getTestName(this.name);
+            bsConfig.name = bsConfig.name + '_' + BaseTestSuite.getTestName(this.name);
         }
         if (BaseTestSuite.config.capabilities['browserstack.local']) {
             BaseTestSuite.config.capabilities.build = 'local_' + (new Date()).toLocaleDateString();
@@ -78,7 +78,7 @@ export abstract class BaseTestSuite {
             const test = (this.mocha.currentTest as Test);
             if (test && test.state !== 'passed') {
                 BaseTestSuite.errors.push({
-                    suite: test.file ? Utils.getTestName(test.file) : '',
+                    suite: test.file ? BaseTestSuite.getTestName(test.file) : '',
                     title: test.title,
                     err: test.err,
                 });
@@ -103,16 +103,11 @@ export abstract class BaseTestSuite {
             if (BaseTestSuite.selenium) {
                 await BaseTestSuite.selenium.stop()
             }
-            await BaseTestSuite.markTestSuite(Utils.getTestName(this.name), sessionId);
+            await BaseTestSuite.markTestSuite(BaseTestSuite.getTestName(this.name), sessionId);
         } catch (e) {
-            await BaseTestSuite.markTestSuite(Utils.getTestName(this.name), sessionId, e);
+            await BaseTestSuite.markTestSuite(BaseTestSuite.getTestName(this.name), sessionId, e);
 
         }
-    }
-
-
-    protected static getUser(): { login: string, password: string, pincode: string } {
-        return BaseTestSuite.config && BaseTestSuite.config.userData && BaseTestSuite.config.userData.arkane;
     }
 
     private static async markTestSuite(testSuiteName: string,

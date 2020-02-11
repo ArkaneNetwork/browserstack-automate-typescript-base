@@ -1,6 +1,6 @@
 import settings from '../../package.json';
 
-import { Utils } from './Utils';
+import { Env } from './Env';
 
 export interface Config {
     userData: any,
@@ -10,29 +10,29 @@ export interface Config {
 
 export class Setup {
     public static async getConfig(): Promise<Config> {
-        const env = Utils.env;
+        const config = Env.getInstance().config;
 
         const userData = {
             'browserstack': {
-                'browserstack.user': env.BROWSERSTACK_USERNAME,
-                'browserstack.key': env.BROWSERSTACK_ACCESS_KEY,
+                'browserstack.user': config.BROWSERSTACK_USERNAME,
+                'browserstack.key': config.BROWSERSTACK_ACCESS_KEY,
             },
         };
 
         // Input capabilities
         const capabilities = {
-            'build': env.BROWSERSTACK_BUILD,
+            'build': config.BROWSERSTACK_BUILD,
             'project': settings.name,
             'acceptSslCerts': 'true',
             'browserstack.networkLogs': 'true',
-            'browserstack.local': env.BROWSERSTACK_LOCAL === 'true',
+            'browserstack.local': config.BROWSERSTACK_LOCAL === 'true',
             'browserstack.console': 'errors',
         };
 
         return {
             userData,
             capabilities,
-            browserStackBinaryPath: env.BROWSERSTACK_LOCAL_BINARY_PATH
+            browserStackBinaryPath: config.BROWSERSTACK_LOCAL_BINARY_PATH
         }
     }
 }

@@ -2,8 +2,8 @@ import iphone8          from './iphone-8.json';
 import macChrome        from './mac-chrome.json';
 import macSafari        from './mac-safari.json';
 import windows10Firefox from './windows10-firefox.json';
-import windows10Edge    from './windows10-edge.json';
-import { Utils }        from '../../base/Utils';
+import windows10Edge  from './windows10-edge.json';
+import { Env } from '../../base/Env';
 
 export interface BrowserConfig {
     browserName?: string;
@@ -27,6 +27,6 @@ export class BrowserConfigs {
         Object.assign({}, macSafari, {name: 'MAC_SAFARI'}),
     ];
     public static getCurrentConfig(): BrowserConfig {
-        return BrowserConfigs.CONFIGS.find((c: BrowserConfig) => c.name === Utils.env.BROWSER_CONFIG) || BrowserConfigs.CONFIGS[0];
+        return BrowserConfigs.CONFIGS.find((c: BrowserConfig) => c.name === Env.getInstance().config.BROWSER_CONFIG) || BrowserConfigs.CONFIGS[0];
     }
 }

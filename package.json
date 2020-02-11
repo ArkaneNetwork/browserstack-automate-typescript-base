@@ -1,6 +1,6 @@
 {
   "name": "browserstack-automate-typescript-base",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "description": "TypeScript abstract base class to easily create mocha tests with browserstack automate (selenium). Only to be used for writing mocha tests in TypeScript.",
